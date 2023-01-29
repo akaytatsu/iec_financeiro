@@ -3,8 +3,6 @@
     <el-scrollbar class="v-scrollbar-side-nav">
       <div class="v-sidenav--logo">
         <a href="/">
-          <img v-if="isCollapse" src="@/assets/images/vert_thumb.svg" />
-          <img v-else src="@/assets/images/logo-vert.svg" />
         </a>
       </div>
 
@@ -77,6 +75,7 @@ export default defineComponent({
   box-shadow: 1px 0 3px 0 #0000001a;
   background-color: $neutral-color-hight-pure;
   transition: all 0.3s ease;
+
   &--collapse {
     max-width: calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding) * 2);
   }
@@ -95,7 +94,7 @@ export default defineComponent({
     justify-content: center;
     padding: 0.5rem;
 
-    > a > img {
+    >a>img {
       vertical-align: middle;
       max-height: 2.25rem;
       width: 100%;
@@ -107,7 +106,7 @@ export default defineComponent({
   & &--items {
     border-right: solid 0px transparent;
 
-    > li {
+    >li {
       &:hover {
         color: var(--el-menu-active-color);
       }
@@ -127,7 +126,7 @@ export default defineComponent({
         content: '';
       }
 
-      > i {
+      >i {
         margin-right: 0.75rem;
       }
     }

@@ -1,11 +1,10 @@
 <template>
   <div class="v-footer">
     <div class="v-footer__copyright">
-      Vert Capital {{ new Date().getFullYear() }} © Todos os direitos reservados
+      Igreja em Contagem
     </div>
     <div class="v-footer__links">
-      <a href="https://www.vert-capital.com/sobre" target="_blank">Sobre a Vert</a> |
-      <a href="https://www.vert-capital.com/contato" target="_blank">Fale conosco</a>
+      <a href="https://www.igrejaemcontagem.com.br/" target="_blank">IEC</a>
     </div>
   </div>
 </template>

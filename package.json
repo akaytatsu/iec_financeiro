@@ -1,5 +1,5 @@
 {
-  "name": "@vert-capital/template-front",
+  "name": "@iec/controle-financeiro-conferencias",
   "version": "v1.0.0",
   "scripts": {
     "dev": "vite --mode development --port 80 --host 0.0.0.0",
