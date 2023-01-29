@@ -1,0 +1,15 @@
+ARG STAGE
+
+# build stage
+FROM node:14.19.3-alpine AS build_stage
+WORKDIR /app
+
+COPY package*.json ./
+COPY yarn.lock ./
+
+RUN yarn --ignore-engines
+RUN apk --no-cache add git
+
+COPY . .
+
+CMD ["sh", "-c", "yarn dev"]

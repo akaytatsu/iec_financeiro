@@ -1,0 +1,270 @@
+@use '../variables/' as variables;
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/*
+Este arquivo fornece algumas classes auxiliares para serem utilizadas globalmente
+*/
+
+/*
+1) Classes de fontes (baseadas em Rem. utilizando diferença entre 8px)
+
+Def. fs-[tamanho em rem separados por hifen]
+Ex. fs-1-25 = font-size: 1.25rem;
+*/
+
+.fs-0-5 {
+  font-size: 0.5rem;
+}
+
+.fs-0-8125 {
+  font-size: 0.8125rem;
+}
+
+.fs-1 {
+  font-size: 1rem;
+}
+
+.fs-1-5 {
+  font-size: 1.5rem;
+}
+
+.fs-2 {
+  font-size: 2rem;
+}
+
+.fs-2-5 {
+  font-size: 2.5rem;
+}
+
+.fs-3 {
+  font-size: 3rem;
+}
+
+/*
+2) Classes de cores
+= Classe com prefixo fill para svgs
+= Classes sem o prefixo fim para aplicar color
+= Classes com o prefixo bkg para aplicar background-color
+*/
+
+.fill-primary-color {
+  fill: variables.$brand-color-primary-pure;
+}
+
+.primary-color {
+  color: variables.$brand-color-primary-pure;
+}
+
+.gray-color {
+  color: variables.$neutral-color-low-medium;
+}
+
+.dark-grey-color {
+  color: variables.$neutral-color-low-dark;
+}
+
+.gray-light-color {
+  color: variables.$neutral-color-hight-dark;
+}
+
+.bg-primary-color {
+  background-color: variables.$brand-color-primary-pure;
+}
+
+.bg-light-green-color {
+  background-color: variables.$light-green-color  !important;
+}
+
+.text-color {
+  color: variables.$neutral-color-low-dark  !important;
+}
+
+.hover-text-color {
+  color: variables.$neutral-color-low-dark  !important;
+
+  &:hover {
+    color: variables.$brand-color-primary-pure;
+  }
+}
+
+.white-color {
+  color: variables.$neutral-color-hight-pure  !important;
+}
+
+.green-color {
+  color: variables.$feedback-color-success-pure;
+}
+
+.red-color {
+  color: variables.$feedback-color-helper-pure;
+}
+
+.yellow-color {
+  color: variables.$feedback-color-warning-pure;
+}
+
+.dark-yellow-color {
+  color: variables.$feedback-color-warning-medium;
+}
+
+.fill-red-color {
+  fill: variables.$feedback-color-helper-pure;
+}
+
+.fill-dark-grey-color {
+  fill: variables.$neutral-color-low-dark;
+}
+
+.fill-white {
+  fill: variables.$neutral-color-hight-pure;
+}
+
+.grey-lighten-color {
+  color: variables.$neutral-color-low-medium;
+}
+
+.grey-light-color {
+  color: variables.$text-color-light;
+}
+
+/*
+3) Font weight helper
+*/
+.fw-bold {
+  font-weight: bold !important;
+}
+
+.fw-300 {
+  font-weight: 300;
+}
+
+.fw-700 {
+  font-weight: 700;
+}
+
+/*
+4) Others useful class helpers
+*/
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.inactive {
+  opacity: 0.5;
+}
+
+.link {
+  color: variables.$brand-color-primary-pure;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: lighten(variables.$brand-color-primary-pure, 10%);
+  }
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.flex-left {
+  margin-left: auto;
+}
+
+.border-radius {
+  border-radius: 30%;
+}
+
+.break-space {
+  white-space: break-spaces !important;
+}
+
+hr.break-session {
+  margin: 2.5rem 0;
+  border-color: variables.$neutral-color-hight-dark;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: bold !important;
+}
+
+.space-item-no-label {
+  top: 20px !important;
+}
+
+.break-span-ellipsis {
+  max-width: 60ch;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pending-deletion {
+  display: flex;
+  align-items: baseline;
+
+  > span:last-child {
+    line-height: 0.875rem;
+    margin-left: 0.25rem;
+  }
+}
+
+.top35 {
+  top: 35px !important;
+}
+
+.align-center-y {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  > div,
+  > button {
+    width: max-content;
+  }
+}
+
+.height-fit {
+  height: fit-content !important;
+}
+
+.float-right {
+  float: right;
+}
+
+.v-flex {
+  display: flex;
+}
+
+.v-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.v-flex-end {
+  display: flex;
+  justify-content: end;
+}
+
+.vpb-default {
+  padding-bottom: 1rem;
+}
+
+.vpt-default {
+  padding-top: 1rem;
+}
+
+.vmr-default {
+  margin-right: 1rem;
+}
+
+.vmt-default {
+  margin-top: 1rem;
+}

@@ -1,0 +1,77 @@
+/* Element Chalk Variables */
+@use 'sass:math';
+@use 'sass:map';
+
+@use '../variables/' as variables;
+
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': variables.$brand-color-primary-pure
+    ),
+    'success': (
+      'base': variables.$feedback-color-success-pure
+    ),
+    'warning': (
+      'base': variables.$feedback-color-warning-pure
+    ),
+    'danger': (
+      'base': variables.$feedback-color-helper-pure
+    ),
+    'error': (
+      'base': variables.$feedback-color-helper-pure
+    ),
+    'info': (
+      'base': variables.$neutral-color-low-medium
+    )
+  ),
+  $table: (
+    'header-bg-color': variables.$brand-color-primary-light,
+    'row-hover-bg-color': rgba(variables.$brand-color-primary-light, 0.4)
+  ),
+  $text-color: (
+    'secondary': variables.$brand-color-primary-pure
+  ),
+  $fill-color: (
+    'light': variables.$neutral-color-hight-medium
+  ),
+  $dialog: (
+    'margin-top': 0
+  ),
+  $button-padding-vertical: (
+    'default': 13px
+  ),
+  $button-padding-horizontal: (
+    'large': 20px,
+    'default': 24px,
+    'small': 15px
+  ),
+  $menu: (
+    'base-level-padding': 1rem,
+    'item-height': 2.875rem,
+    'icon-width': 14px,
+    'border-color': rgba(255, 255, 255, 0),
+    'bg-color': rgba(255, 255, 255, 0),
+    'text-color': variables.$neutral-color-low-medium,
+    'horizontal-sub-item-height': auto,
+  ),
+  $common-component-size: (
+    'large': 50px,
+    'default': 40px,
+    'small': 32px,
+  ),
+  $disabled: (
+    'bg-color': variables.$neutral-color-hight-light,
+    'text-color': variables.$neutral-color-low-dark,
+    'border-color': variables.$neutral-color-hight-light,
+  ),
+  $tag: (
+    'border-radius': 11px,
+  ),
+  $radio: (
+    'input-height': 1.375rem,
+    'input-width': 1.375rem,
+  )
+);
+
+@use 'element-plus/theme-chalk/src/index.scss' as *;

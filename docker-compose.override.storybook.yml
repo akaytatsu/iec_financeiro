@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    volumes:
+      - ./:/app
+    working_dir: /app
+    ports:
+      - 8000:80
+  storybook:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: ['sh', '-c', 'yarn run storybook --port 80']
+    ports:
+      - 8001:80
