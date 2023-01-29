@@ -21,7 +21,12 @@ export default defineComponent({
     const isLoading = ref(false);
     const paginationCount = ref(1);
 
-    const formDataFilters = reactive({});
+    const formDataFilters = reactive({
+      conferencia: null,
+      categoria: null,
+      status: null,
+      usuario_solicitacao: null,
+    });
 
     const fetchDespesas = (() => store.dispatch('financeiro/fetchDespesas', formDataFilters));
     const fetchCategorias = (() => store.dispatch('financeiro/fetchCategorias'));
@@ -46,6 +51,10 @@ export default defineComponent({
       router.push({ name: 'NovaDespesa' });
     }
 
+    const handleApplyFilters = () => {
+      fetchDespesas();
+    }
+
     onMounted(() => {
       fetchDespesas();
       fetchCategorias();
@@ -65,7 +74,8 @@ export default defineComponent({
       despesasData,
       formatAmount,
       formatDate,
-      newRequestTableClick
+      newRequestTableClick,
+      handleApplyFilters
     };
   }
 });

@@ -9,7 +9,7 @@
         </slot>
       </vds-button>
     </section>
-    <v-content filter :event-search="handleApplyFilters" :data-search="dataSearch">
+    <v-content filter :event-search="handleApplyFilters">
       <template #filter>
         <v-form-filter :form-value="formDataFilters" @apply-filters="handleApplyFilters" />
       </template>
@@ -19,6 +19,7 @@
             <el-table-column prop="usuario_solicitacao.name" label="Requisitante" min-width="110" />
             <el-table-column prop="valor" label="Valor" :formatter="formatAmount" min-width="80" />
             <el-table-column prop="status_description" label="Status" min-width="110" />
+            <el-table-column prop="categoria.nome" label="Categoria" min-width="110" />
             <el-table-column prop="usuario_aprovacao.name" label="Aprovador" min-width="110" />
             <el-table-column prop="data_solicitacao" label="Data Solicitação" min-width="110" :formatter="formatDate" />
           </el-table>

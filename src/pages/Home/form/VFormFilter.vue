@@ -34,8 +34,8 @@
 
       <el-col :sm="8" :lg="8" :xl="8">
         <el-form-item label="Requisitante">
-          <el-select v-model="formValue.usuario_requisicao" placeholder="Selecione Requisitante" :fit-input-width="true"
-            :filterable="true">
+          <el-select v-model="formValue.usuario_solicitacao" placeholder="Selecione Requisitante"
+            :fit-input-width="true" :filterable="true">
             <el-option label="Todos" :value="null" />
             <el-option v-for="user in usuarios" :label="user.name" :value="user.id" />
           </el-select>
