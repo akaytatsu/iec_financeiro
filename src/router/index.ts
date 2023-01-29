@@ -34,6 +34,17 @@ const router = createRouter({
           component: () => import('../pages/Despesa/Despesa.vue')
         }
       ]
+    },
+    {
+      path: '/despesa/:id/',
+      component: () => import('../pages/Base/BasePage.vue'),
+      children: [
+        {
+          path: '',
+          name: 'ViewDespesa',
+          component: () => import('../pages/Despesa/Despesa.vue')
+        }
+      ]
     }
   ]
 });

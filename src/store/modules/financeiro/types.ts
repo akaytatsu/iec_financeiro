@@ -61,3 +61,11 @@ export interface IDespesaFilterForm {
   classification?: number | undefined;
   status?: number | undefined;
 }
+
+export interface ICreateDespesaForm {
+  id: number;
+  conferencia: number;
+  categoria: number;
+  valor: number;
+  justificativa: string;
+}

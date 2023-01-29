@@ -1,5 +1,6 @@
+import router from "@/router";
 import * as service from "./services";
-import { IDespesaFilterForm } from "./types";
+import { ICreateDespesaForm, IDespesaFilterForm } from "./types";
 
 export default {
     async fetchDespesas({ commit }, params: IDespesaFilterForm) {
@@ -21,5 +22,35 @@ export default {
     async fetchUsuarios({ commit }) {
         const response = await service.getUsuarios();
         commit("setUsuarios", response.data);
+    },
+    async createDespesa({ commit }, data: ICreateDespesaForm) {
+        commit("setLoading", true);
+        const response = await service.createDespesa(data);
+
+        if (response.status === "success") {
+            commit("setLoading", false);
+            await router.push('/');
+        }
+
+        commit("setLoading", false);
+    },
+    async updateDespesa({ commit }, data: ICreateDespesaForm) {
+        commit("setLoading", true);
+        const response = await service.updateDespesa(data.id, data);
+
+        if (response.status === "success") {
+            commit("setLoading", false);
+            await router.push('/');
+        }
+
+        commit("setLoading", false);
+    },
+    async fetchDespesa({ commit }, id: number) {
+        commit("setLoading", true);
+
+        const response = await service.getDespesa(id);
+        commit("setDespesa", response.data);
+
+        commit("setLoading", false);
     }
 }

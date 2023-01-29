@@ -15,7 +15,8 @@
       </template>
       <el-row justify="end">
         <el-col :span="24">
-          <el-table v-loading="isLoading" :data="despesasData.results" @sort-change="handleSortChange">
+          <el-table v-loading="isLoading" :data="despesasData.results" @sort-change="handleSortChange"
+            @row-click="RequestTableClick">
             <el-table-column prop="usuario_solicitacao.name" label="Requisitante" min-width="110" />
             <el-table-column prop="valor" label="Valor" :formatter="formatAmount" min-width="80" />
             <el-table-column prop="status_description" label="Status" min-width="110" />

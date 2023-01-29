@@ -22,78 +22,45 @@ export default defineComponent({
 
         const requestID = route.params.id;
 
-        const selectedAbsenceType = ref<IAbsenceType>({
-            id: 0,
-            name: '',
-            description: '',
-            date_type: 'date'
-        });
+        const fetchCategorias = () => store.dispatch('financeiro/fetchCategorias');
+        const fetchConferencias = () => store.dispatch('financeiro/fetchConferencias');
+        const fetchDespesa = (id: number) => store.dispatch('financeiro/fetchDespesa', id);
 
-        const fetchCategorias = (() => store.dispatch('financeiro/fetchCategorias'));
-        const fetchConferencias = (() => store.dispatch('financeiro/fetchConferencias'));
-
-        const absenceTypes = computed(() => store.getters['requests/getAbsenceTypes']);
         const isLoading = computed(() => store.getters['requests/getLoading']);
-        const request = computed(() => store.getters['requests/getRequest']);
-        const userData = computed(() => store.getters['user/getInfo']);
+        // const userData = computed(() => store.getters['user/getInfo']);
 
-        const fetchAbsenceTypes = () => store.dispatch('requests/fetchAbsenceTypes');
-        const fetchRequest = (id: number) => store.dispatch('requests/fetchRequest', id);
         const fetchUserInfo = () => store.dispatch('user/fetchUserInfo');
-        const approveRequest = () => {
-            if (confirm('Confirma aprovação?') && requestID) {
-                store.dispatch('requests/approveRequest', requestID);
-            }
-        };
-        const rejectRequest = () => {
-            if (confirm('Confirma reprovação do pedido?') && requestID) {
-                store.dispatch('requests/rejectRequest', requestID)
-            }
-        };
+        // const approveRequest = () => {
+        //     if (confirm('Confirma aprovação?') && requestID) {
+        //         store.dispatch('requests/approveRequest', requestID);
+        //     }
 
-        const readOnly = computed(() => {
-            if (request.value && userData.value && requestID) {
-                return request.value.status != 'pending' || request.value.user.id != userData.value.id;
-            }
-            return false;
-        });
-
-        const canApprove = computed(() => {
-            if (request.value && userData.value && requestID) {
-                return request.value.status == 'pending' && request.value.team.gestor.user.id == userData.value.id;
-            }
-            return false;
-        });
+        const conferencias = computed(() => store.getters['financeiro/getConferencias']);
+        const categorias = computed(() => store.getters['financeiro/getCategorias']);
+        const despesa = computed(() => store.getters['financeiro/getDespesa']);
 
         const formData = ref<IRequestAdd>({
-            start_date: '',
-            end_date: '',
-            comment: null,
-            type_absence: null
+            id: null,
+            conferencia: null,
+            categoria: null,
+            valor: null,
+            justificativa: null,
         });
 
         const add = () => {
             // store.commit('add');
         };
 
-        const onAbsenceTypeChange = (value: number) => {
-            selectedAbsenceType.value = absenceTypes.value.find(
-                (c: IAbsenceType) => c.id === value
-            );
-        };
-
         onMounted(async () => {
-            fetchUserInfo();
-            fetchAbsenceTypes();
+            fetchCategorias();
+            fetchConferencias();
             if (requestID) {
-                await fetchRequest(requestID);
-                console.log("start_date", request.value.start_date);
-                console.log("end_date", request.value.end_date);
-                formData.value.start_date = request.value.start_date;
-                formData.value.end_date = request.value.end_date;
-                formData.value.comment = request.value.comment;
-                formData.value.type_absence = request.value.type_absence.id;
-                formData.value.id = request.value.id;
+                await fetchDespesa(requestID);
+                formData.value.conferencia = despesa.value.conferencia.id;
+                formData.value.categoria = despesa.value.categoria.id;
+                formData.value.valor = despesa.value.valor;
+                formData.value.justificativa = despesa.value.justificativa;
+                formData.value.id = requestID;
             }
         });
 
@@ -102,9 +69,9 @@ export default defineComponent({
             formEl.validate(async (valid) => {
                 if (valid) {
                     if (requestID) {
-                        await store.dispatch('requests/updateRequest', formData.value);
+                        await store.dispatch('financeiro/updateDespesa', formData.value);
                     } else {
-                        store.dispatch('requests/addRequest', formData.value);
+                        store.dispatch('financeiro/createDespesa', formData.value);
                     }
                 } else {
                     return false;
@@ -116,22 +83,18 @@ export default defineComponent({
             router.push({ name: 'Home' });
         };
 
+        const readOnly = computed(() => false);
+
         return {
             add,
             ruleFormRef,
             toHomeClick,
             isLoading,
             submitForm,
-            absenceTypes,
-            selectedAbsenceType,
-            onAbsenceTypeChange,
             formData,
-            request,
-            userData,
-            readOnly,
-            canApprove,
-            approveRequest,
-            rejectRequest
+            conferencias,
+            categorias,
+            readOnly
         };
     }
 });

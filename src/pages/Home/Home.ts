@@ -51,6 +51,10 @@ export default defineComponent({
       router.push({ name: 'NovaDespesa' });
     }
 
+    const RequestTableClick = (event) => {
+      router.push({ name: 'ViewDespesa', params: { id: event.id } });
+    }
+
     const handleApplyFilters = () => {
       fetchDespesas();
     }
@@ -75,7 +79,8 @@ export default defineComponent({
       formatAmount,
       formatDate,
       newRequestTableClick,
-      handleApplyFilters
+      handleApplyFilters,
+      RequestTableClick
     };
   }
 });

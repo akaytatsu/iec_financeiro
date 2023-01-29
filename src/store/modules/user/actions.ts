@@ -11,8 +11,6 @@ export default {
     const response = await authUser(data);
 
     if (response.status == 'success') {
-      console.log(response.data.token)
-      console.log(response.data)
       commit('setTokens', response.data.token);
       commit('setIsLogged', true);
       await router.push('/');

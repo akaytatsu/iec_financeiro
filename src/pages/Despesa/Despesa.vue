@@ -9,22 +9,38 @@
             </el-row>
             <el-form ref="ruleFormRef" :model="formData" label-position="top">
                 <el-row :gutter="70">
-                    <!-- Tipo Ausencia -->
+                    <!-- Conferencia -->
                     <el-col :sm="24" :lg="24" :xl="24">
-                        <el-form-item label="Tipo Ausencia" prop="type_absence" :required="true">
-                            <el-select v-model="formData.type_absence" placeholder="Selecione o tipo de ausencia"
-                                :fit-input-width="true" @change="onAbsenceTypeChange" :disabled="readOnly"
-                                :readonly="readOnly">
-                                <el-option v-for="(item, index) in absenceTypes" :key="index" :label="item.name"
+                        <el-form-item label="Conferencia" prop="conferencia" :required="true">
+                            <el-select v-model="formData.conferencia" placeholder="Selecione a Conferencia"
+                                :fit-input-width="true" :disabled="readOnly" :readonly="readOnly">
+                                <el-option v-for="(item, index) in conferencias" :key="index" :label="item.titulo"
                                     :value="item.id" />
                             </el-select>
                         </el-form-item>
                     </el-col>
-                    <!-- Descrição -->
+                    <!-- Categoria -->
                     <el-col :sm="24" :lg="24" :xl="24">
-                        <el-form-item label="Comentários" prop="comment" :required="true">
-                            <el-input v-model="formData.comment" type="textarea" placeholder="Comentários" :rows="5"
-                                :disabled="readOnly" :readonly="readOnly" />
+                        <el-form-item label="Categoria" prop="categoria" :required="true">
+                            <el-select v-model="formData.categoria" placeholder="Selecione a Categoria"
+                                :fit-input-width="true" :disabled="readOnly" :readonly="readOnly">
+                                <el-option v-for="(item, index) in categorias" :key="index" :label="item.nome"
+                                    :value="item.id" />
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <!-- Valor -->
+                    <el-col :sm="24" :lg="24" :xl="24">
+                        <el-form-item label="Valor" prop="valor" :required="true">
+                            <el-input-number v-model="formData.valor" placeholder="Valor" :disabled="readOnly"
+                                :readonly="readOnly" controls-position="right" :precision="2" :step="10" />
+                        </el-form-item>
+                    </el-col>
+                    <!-- Justificativa -->
+                    <el-col :sm="24" :lg="24" :xl="24">
+                        <el-form-item label="Justificativa" prop="justificativa" :required="true">
+                            <el-input v-model="formData.justificativa" type="textarea" placeholder="Justificativa"
+                                :rows="5" :disabled="readOnly" :readonly="readOnly" />
                         </el-form-item>
                     </el-col>
                 </el-row>

@@ -16,5 +16,8 @@ export default {
     },
     getUsuarios(state: IDespesaState): ISimpleUser[] {
         return state.usuarios;
+    },
+    getDespesa(state: IDespesaState): IDespesa {
+        return state.despesa;
     }
 }
