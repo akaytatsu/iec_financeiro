@@ -14,6 +14,14 @@ const router = createRouter({
       component: () => import('../pages/Login/Login.vue'),
     },
     {
+      path: '/logout',
+      name: 'logout',
+      meta: {
+        requiresAuth: false
+      },
+      component: () => import('../pages/Logout/Logout.vue'),
+    },
+    {
       path: '/',
       component: () => import('../pages/Base/BasePage.vue'),
       children: [

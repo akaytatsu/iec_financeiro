@@ -8,6 +8,8 @@ import { FormInstance } from 'element-plus';
 import router from '@/router';
 import { IAbsenceType, IRequestAdd } from '@/store/modules/requests/types';
 import { useRoute } from 'vue-router'
+import { IDespesaStatusForm } from '@/store/modules/financeiro/types';
+import { toNumber } from '@vue/shared';
 
 
 export default defineComponent({
@@ -25,19 +27,74 @@ export default defineComponent({
         const fetchCategorias = () => store.dispatch('financeiro/fetchCategorias');
         const fetchConferencias = () => store.dispatch('financeiro/fetchConferencias');
         const fetchDespesa = (id: number) => store.dispatch('financeiro/fetchDespesa', id);
-
-        const isLoading = computed(() => store.getters['requests/getLoading']);
-        // const userData = computed(() => store.getters['user/getInfo']);
-
-        const fetchUserInfo = () => store.dispatch('user/fetchUserInfo');
-        // const approveRequest = () => {
-        //     if (confirm('Confirma aprovação?') && requestID) {
-        //         store.dispatch('requests/approveRequest', requestID);
-        //     }
+        const fetchMeInfo = () => store.dispatch('user/fetchMeInfo');
 
         const conferencias = computed(() => store.getters['financeiro/getConferencias']);
         const categorias = computed(() => store.getters['financeiro/getCategorias']);
         const despesa = computed(() => store.getters['financeiro/getDespesa']);
+        const accountInfo = computed(() => store.getters['user/getMeInfo']);
+
+        const approveDespesa = () => { store.dispatch('financeiro/aprovaDespesa', { id: requestID }) };
+        const reprovaDespesa = () => { store.dispatch('financeiro/reprovaDespesa', { id: requestID }) };
+        const confirmaRepasse = () => { store.dispatch('financeiro/confirmaRepasse', { id: requestID }) };
+        const aprovaComprovacao = () => { store.dispatch('financeiro/confirmaAprovacao', { id: requestID }) };
+        const reprovaComprovacao = () => { store.dispatch('financeiro/reprovaAprovacao', { id: requestID }) };
+
+        const canSave = computed(() => {
+            if (requestID && requestID != "") return false;
+
+            if (accountInfo.value.can_request) return true;
+
+            return false;
+        });
+        const canApproveDespesa = computed(() => {
+            if (!requestID) return false;
+
+            if (accountInfo.value.can_aprove && despesa.value.status == 1) return true;
+
+            return false;
+        });
+
+        const canReprovaDespesa = computed(() => {
+            if (!requestID) return false;
+
+            if (accountInfo.value.can_aprove && despesa.value.status == 1) return true;
+
+            return false;
+        });
+
+        const canConfirmRepasse = computed(() => {
+            if (!requestID) return false;
+
+            if (accountInfo.value.can_request && despesa.value.status == 2 && accountInfo.value.id == despesa.value.usuario_solicitacao.id) return true;
+
+            return false;
+        });
+
+        const canApproveComprovacao = computed(() => {
+            if (!requestID) return false;
+
+            if (accountInfo.value.can_aprove && despesa.value.status == 5) return true;
+
+            return false;
+        });
+
+        const canReproveComprovacao = computed(() => {
+            if (!requestID) return false;
+
+            if (accountInfo.value.can_aprove && despesa.value.status == 5) return true;
+
+            return false;
+        });
+
+        const canShowMotivoRecusaField = computed(() => {
+
+            if (canReprovaDespesa.value || despesa.value.status == 3 || despesa.value.status == 8) return true;
+
+            return false;
+        });
+
+        const isLoading = computed(() => store.getters['requests/getLoading']);
 
         const formData = ref<IRequestAdd>({
             id: null,
@@ -45,17 +102,28 @@ export default defineComponent({
             categoria: null,
             valor: null,
             justificativa: null,
+            justificativa_reprovacao: null,
         });
 
         const add = () => {
             // store.commit('add');
         };
 
+        const canShowFileInput = computed(() => {
+            if (!requestID) return false;
+
+            if (accountInfo.value.can_request && despesa.value.status == 4) return true;
+
+            return false;
+
+        });
+
         onMounted(async () => {
             fetchCategorias();
             fetchConferencias();
+            fetchMeInfo();
             if (requestID) {
-                await fetchDespesa(requestID);
+                await fetchDespesa(toNumber(requestID));
                 formData.value.conferencia = despesa.value.conferencia.id;
                 formData.value.categoria = despesa.value.categoria.id;
                 formData.value.valor = despesa.value.valor;
@@ -83,7 +151,32 @@ export default defineComponent({
             router.push({ name: 'Home' });
         };
 
-        const readOnly = computed(() => false);
+        const readOnly = computed(() => {
+            if (isLoading.value) return true;
+
+            if (requestID && requestID != "") {
+                // if (despesa.value?.usuario_solicitacao?.id != accountInfo.value?.id) return true;
+                return true;
+            }
+
+            return false;
+        });
+
+        const readOnlyMotivoRecusa = computed(() => {
+            if (isLoading.value) return true;
+
+            if (!accountInfo.value.can_aprove) return true;
+
+            if (despesa.value.status == 1 || despesa.value.status == 5) return false;
+
+            return true;
+        });
+
+        const isEdit = computed(() => {
+            if (requestID && requestID != "") return true;
+
+            return false;
+        });
 
         return {
             add,
@@ -94,7 +187,24 @@ export default defineComponent({
             formData,
             conferencias,
             categorias,
-            readOnly
+            readOnly,
+            accountInfo,
+            canShowFileInput,
+            approveDespesa,
+            canApproveDespesa,
+            canReprovaDespesa,
+            reprovaDespesa,
+            canConfirmRepasse,
+            confirmaRepasse,
+            canApproveComprovacao,
+            aprovaComprovacao,
+            canReproveComprovacao,
+            reprovaComprovacao,
+            canSave,
+            canShowMotivoRecusaField,
+            readOnlyMotivoRecusa,
+            despesa,
+            isEdit
         };
     }
 });

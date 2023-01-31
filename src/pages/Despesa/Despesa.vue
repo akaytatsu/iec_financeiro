@@ -9,6 +9,12 @@
             </el-row>
             <el-form ref="ruleFormRef" :model="formData" label-position="top">
                 <el-row :gutter="70">
+                    <!-- Nome -->
+                    <el-col :sm="24" :lg="24" :xl="24" v-if="isEdit">
+                        <el-form-item label="Solicitante" :required="false">
+                            <el-input :disabled="true" :readonly="true" :value="despesa?.usuario_solicitacao?.name" />
+                        </el-form-item>
+                    </el-col>
                     <!-- Conferencia -->
                     <el-col :sm="24" :lg="24" :xl="24">
                         <el-form-item label="Conferencia" prop="conferencia" :required="true">
@@ -43,26 +49,42 @@
                                 :rows="5" :disabled="readOnly" :readonly="readOnly" />
                         </el-form-item>
                     </el-col>
+                    <!-- Justificativa Reprovação -->
+                    <el-col :sm="24" :lg="24" :xl="24" v-if="canShowMotivoRecusaField">
+                        <el-form-item label="Justificativa Reprovação" prop="justificativa_reprovacao"
+                            :required="false">
+                            <el-input v-model="formData.justificativa_reprovacao" type="textarea"
+                                placeholder="Justificativa Reprovação" :rows="5" :disabled="readOnlyMotivoRecusa"
+                                :readonly="readOnlyMotivoRecusa" />
+                        </el-form-item>
+                    </el-col>
+                    <!-- Comprovante -->
+                    <el-col v-if="canShowFileInput">
+                        <el-upload v-model:file-list="fileList" drag :auto-upload="false" :multiple="false" :limit="1">
+                            <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+                            <div class="el-upload__text">Arraste arquivos aqui ou <em style="font-size: larger;">clique
+                                    aqui
+                                    para upload</em></div>
+                        </el-upload>
+                    </el-col>
                 </el-row>
             </el-form>
 
             <template #footer>
                 <el-row justify="end">
-                    <template v-if="!readOnly">
-                        <el-button v-if="!isLoading" type="info" round @click="toHomeClick()">
-                            Cancelar
-                        </el-button>
-                        <el-button type="primary" round :loading="isLoading" @click="submitForm(ruleFormRef)">
-                            Salvar
-                        </el-button>
-                    </template>
-                    <template v-else>
-                        <el-button type="info" round @click="toHomeClick()"> Voltar </el-button>
-                    </template>
-                    <template v-if="canApprove">
-                        <el-button type="danger" round @click="rejectRequest()"> Reprovar </el-button>
-                        <el-button type="primary" round @click="approveRequest()"> Aprovar </el-button>
-                    </template>
+                    <el-button v-if="!isLoading" type="info" round @click="toHomeClick()">Voltar</el-button>
+                    <el-button type="primary" round :loading="isLoading" @click="submitForm(ruleFormRef)"
+                        v-if="canSave">Salvar</el-button>
+                    <el-button type="primary" round :loading="isLoading" @click="approveDespesa()"
+                        v-if="canApproveDespesa">Aprovar Solicitação</el-button>
+                    <el-button type="danger" round :loading="isLoading" @click="reprovaDespesa()"
+                        v-if="canReprovaDespesa">Reprovar Solicitação</el-button>
+                    <el-button type="primary" round :loading="isLoading" @click="confirmaRepasse()"
+                        v-if="canConfirmRepasse">Confirmar Repasse</el-button>
+                    <el-button type="primary" round :loading="isLoading" @click="aprovaComprovacao()"
+                        v-if="canApproveComprovacao">Aprovar COmprovação</el-button>
+                    <el-button type="danger" round :loading="isLoading" @click="reprovaComprovacao()"
+                        v-if="canReproveComprovacao">Reprovar COmprovação</el-button>
                 </el-row>
             </template>
         </v-content>

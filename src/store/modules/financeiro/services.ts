@@ -25,3 +25,18 @@ export const getDespesa = async (id: number): Promise<ISimpleReponseData<IDespes
 
 export const updateDespesa = async (id: number, data: ICreateDespesaForm): Promise<ISimpleReponseData<{}>> =>
     api.put(`/financeiro/despesas/${id}/update/`, data);
+
+export const aprovaDespesa = async (id: number): Promise<ISimpleReponseData<{}>> =>
+    api.put(`/financeiro/despesas/${id}/aprovar/`);
+
+export const reprovaDespesa = async (id: number, justificativa: string): Promise<ISimpleReponseData<{}>> =>
+    api.put(`/financeiro/despesas/${id}/reprovar/`, { params: { justificativa_reprovacao: justificativa } });
+
+export const confirmarRepasse = async (id: number): Promise<ISimpleReponseData<{}>> =>
+    api.put(`/financeiro/despesas/${id}/confirma-repasse/`);
+
+export const confirmaAprovacao = async (id: number): Promise<ISimpleReponseData<{}>> =>
+    api.put(`/financeiro/despesas/${id}/confirma-aprovacao/`);
+
+export const reprovaAprovacao = async (id: number, justificativa: string): Promise<ISimpleReponseData<{}>> =>
+    api.put(`/financeiro/despesas/${id}/reprova-aprovacao/`, { params: { justificativa_reprovacao: justificativa } });

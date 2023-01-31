@@ -1,4 +1,4 @@
-import type { IUserState, IUserInfo, ILoginResponse } from './types';
+import type { IUserState, IUserInfo, ILoginResponse, IAccountInfo } from './types';
 
 export default {
   setIsLogged(state: IUserState, isLogged: boolean): void {
@@ -20,8 +20,8 @@ export default {
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('isLogged');
   },
-  setUserInfo(state: IUserState, info: IUserInfo): void {
-    state.info = info;
+  setMeInfo(state: IUserState, payload: IAccountInfo): void {
+    state.accountInfo = payload;
   },
   setInvalidToken(state: IUserState, invalidToken: boolean): void {
     state.invalidToken = invalidToken;

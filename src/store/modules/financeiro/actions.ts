@@ -1,6 +1,6 @@
 import router from "@/router";
 import * as service from "./services";
-import { ICreateDespesaForm, IDespesaFilterForm } from "./types";
+import { ICreateDespesaForm, IDespesaFilterForm, IDespesaStatusForm } from "./types";
 
 export default {
     async fetchDespesas({ commit }, params: IDespesaFilterForm) {
@@ -52,5 +52,51 @@ export default {
         commit("setDespesa", response.data);
 
         commit("setLoading", false);
+    },
+    async aprovaDespesa({ commit }, params: IDespesaStatusForm) {
+        commit("setLoading", true);
+
+        await service.aprovaDespesa(params.id);
+        const response = await service.getDespesa(params.id);
+        commit("setDespesa", response.data);
+        commit("setLoading", false);
+
+        return response;
+    },
+    async reprovaDespesa({ commit }, params: IDespesaStatusForm) {
+        commit("setLoading", true);
+
+        await service.reprovaDespesa(params.id, params.justificativa_reprovacao);
+        const response = await service.getDespesa(params.id);
+        commit("setLoading", false);
+
+        return response;
+    },
+    async confirmaRepasse({ commit }, params: IDespesaStatusForm) {
+        commit("setLoading", true);
+
+        await service.confirmarRepasse(params.id);
+        const response = await service.getDespesa(params.id);
+        commit("setLoading", false);
+
+        return response;
+    },
+    async confirmaAprovacao({ commit }, params: IDespesaStatusForm) {
+        commit("setLoading", true);
+
+        await service.confirmaAprovacao(params.id);
+        const response = await service.getDespesa(params.id);
+        commit("setLoading", false);
+
+        return response;
+    },
+    async reprovaAprovacao({ commit }, params: IDespesaStatusForm) {
+        commit("setLoading", true);
+
+        await service.reprovaAprovacao(params.id, params.justificativa_reprovacao);
+        const response = await service.getDespesa(params.id);
+        commit("setLoading", false);
+
+        return response;
     }
 }

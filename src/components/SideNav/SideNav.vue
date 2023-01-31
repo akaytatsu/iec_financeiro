@@ -14,13 +14,6 @@
           <span v-if="isCollapse"></span>
           <span v-else>Home</span>
         </el-menu-item>
-        <el-menu-item index="/page-example" :route="{ name: 'PageExample', params: {} }">
-          <el-icon>
-            <SvgIcon type="mdi" :path="mdiFormatListBulleted" :size="15"></SvgIcon>
-          </el-icon>
-          <span v-if="isCollapse"></span>
-          <span v-else>Page example</span>
-        </el-menu-item>
       </el-menu>
     </el-scrollbar>
   </el-aside>

@@ -1,6 +1,5 @@
 import router from '@/router';
-import type { ActionContext } from 'vuex';
-import { getUserInfo, validToken, logoutApplication, authUser } from './services';
+import { getMeInfo, authUser } from './services';
 import { ILoginForm } from './types';
 
 export default {
@@ -23,22 +22,16 @@ export default {
     commit('setIsLoading', false);
 
   },
-  async fetchUserInfo({ commit }: ActionContext<any, any>) {
-    return await getUserInfo()
+  async fetchMeInfo({ commit }) {
+    return await getMeInfo()
       .then((response: any) => {
-        commit('setUserInfo', response.data);
+        commit('setMeInfo', response.data);
       })
       .catch((error: any) => {
         throw error;
       });
   },
-  async logout({ commit }: ActionContext<any, any>) {
-    return await logoutApplication()
-      .then(() => {
-        commit('setClearTokens');
-      })
-      .catch((error: any) => {
-        throw error;
-      });
+  async logout({ commit }) {
+    commit('setClearTokens');
   }
 };

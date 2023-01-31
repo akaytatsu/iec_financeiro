@@ -69,3 +69,8 @@ export interface ICreateDespesaForm {
   valor: number;
   justificativa: string;
 }
+
+export interface IDespesaStatusForm {
+  id: number;
+  justificativa_reprovacao: string;
+}

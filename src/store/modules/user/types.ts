@@ -9,6 +9,7 @@ export interface IUserState {
   info: IUserInfo;
   invalidToken: boolean;
   loginErros: ILoginResponse;
+  accountInfo: IAccountInfo;
 }
 
 export interface IUserInfo {
@@ -29,4 +30,15 @@ export interface ILoginResponse {
 export interface ILoginForm {
   email: string;
   password: string;
+}
+
+export interface IAccountInfo {
+  id: number;
+  name: string;
+  email: string;
+  telefone?: any;
+  can_request: boolean;
+  can_aprove: boolean;
+  can_pay: boolean;
+  tp_user_financeiro: number;
 }
