@@ -28,11 +28,13 @@ export default defineComponent({
         const fetchConferencias = () => store.dispatch('financeiro/fetchConferencias');
         const fetchDespesa = (id: number) => store.dispatch('financeiro/fetchDespesa', id);
         const fetchMeInfo = () => store.dispatch('user/fetchMeInfo');
+        const fetchComprovantes = (despesaId: number) => store.dispatch('financeiro/fetchComprovantes', despesaId);
 
         const conferencias = computed(() => store.getters['financeiro/getConferencias']);
         const categorias = computed(() => store.getters['financeiro/getCategorias']);
         const despesa = computed(() => store.getters['financeiro/getDespesa']);
         const accountInfo = computed(() => store.getters['user/getMeInfo']);
+        const comprovantes = computed(() => store.getters['financeiro/getComprovantes']);
 
         const approveDespesa = () => { store.dispatch('financeiro/aprovaDespesa', { id: requestID }) };
         const reprovaDespesa = () => { store.dispatch('financeiro/reprovaDespesa', { id: requestID }) };
@@ -83,6 +85,14 @@ export default defineComponent({
             if (!requestID) return false;
 
             if (accountInfo.value.can_aprove && despesa.value.status == 5) return true;
+
+            return false;
+        });
+
+        const canShowComprovantesTable = computed(() => {
+            if (!requestID) return false;
+
+            if (despesa.value.status >= 5) return true;
 
             return false;
         });
@@ -160,6 +170,7 @@ export default defineComponent({
             fetchConferencias();
             fetchMeInfo();
             if (requestID) {
+                fetchComprovantes(toNumber(requestID));
                 await fetchDespesa(toNumber(requestID));
                 formData.value.conferencia = despesa.value.conferencia.id;
                 formData.value.categoria = despesa.value.categoria.id;
@@ -244,7 +255,9 @@ export default defineComponent({
             isEdit,
             fileList,
             comproveAction,
-            canComprove
+            canComprove,
+            comprovantes,
+            canShowComprovantesTable
         };
     }
 });

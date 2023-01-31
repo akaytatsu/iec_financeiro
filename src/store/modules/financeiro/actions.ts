@@ -108,7 +108,6 @@ export default {
         commit("setLoading", true);
 
         const response = await service.getComprovantes(id);
-        router.go(0);
 
         commit("setComprovantes", response.data);
 

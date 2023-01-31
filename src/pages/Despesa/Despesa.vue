@@ -73,6 +73,16 @@
                                     para upload</em></div>
                         </el-upload>
                     </el-col>
+                    <!-- Comprovantes Table -->
+                    <el-col v-if="canShowComprovantesTable">
+                        <el-table :data="comprovantes" border>
+                            <el-table-column label="Comprovantes">
+                                <template #default="scope">
+                                    <a :href="scope.row.comprovante" target="_blank">{{ scope.row.comprovante }}</a>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-col>
                 </el-row>
             </el-form>
 
