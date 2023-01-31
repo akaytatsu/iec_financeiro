@@ -1,6 +1,6 @@
 import api from '@/common/axios';
 import { IReponseData, ISimpleReponseData } from '../utils/types';
-import { ICategoriaDespesa, IConferencia, ICreateDespesaForm, IDespesa, IDespesaFilterForm, IDespesaStatus, ISimpleUser } from './types';
+import { ICategoriaDespesa, IComprovante, IConferencia, ICreateDespesaForm, IDespesa, IDespesaFilterForm, IDespesaStatus, ISimpleUser } from './types';
 
 export const getDespesas = async (param: IDespesaFilterForm): Promise<IReponseData<IDespesa>> =>
     api.get('/financeiro/despesas/', { params: param });
@@ -40,3 +40,20 @@ export const confirmaAprovacao = async (id: number): Promise<ISimpleReponseData<
 
 export const reprovaAprovacao = async (id: number, justificativa: string): Promise<ISimpleReponseData<{}>> =>
     api.put(`/financeiro/despesas/${id}/reprova-aprovacao/`, { params: { justificativa_reprovacao: justificativa } });
+
+export const getComprovantes = async (id: number): Promise<ISimpleReponseData<IComprovante>> =>
+    api.get(`/financeiro/despesas/${id}/comprovantes/`);
+
+export const deletaComprovante = async (despesa: number, id: number): Promise<ISimpleReponseData<{}>> =>
+    api.delete(`/financeiro/despesas/${despesa}/comprovantes/${id}/`);
+
+export const uploadComprovante = async (despesa: number, file: File): Promise<ISimpleReponseData<{}>> => {
+    return api.post(`/financeiro/despesas/${despesa}/comprovantes/`, {
+        despesa: despesa,
+        comprovante: file
+    }, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+}

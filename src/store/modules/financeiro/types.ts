@@ -8,6 +8,7 @@ export interface IDespesaState {
   conferencias: IConferencia[];
   usuarios: ISimpleUser[];
   status: IDespesaStatus[];
+  comprovantes: IComprovante[];
 }
 
 export interface IDespesa {
@@ -73,4 +74,23 @@ export interface ICreateDespesaForm {
 export interface IDespesaStatusForm {
   id: number;
   justificativa_reprovacao: string;
+}
+
+export interface IComprovante {
+  id: number;
+  comprovante: string;
+  extension: string;
+  is_image: boolean;
+  data_comprovacao: string;
+  despesa: number;
+}
+
+export interface IComprovanteForm {
+  despesa: number;
+  comprovante: any;
+}
+
+export interface IComprovanteDeleteForm {
+  id: number;
+  despesa: number;
 }

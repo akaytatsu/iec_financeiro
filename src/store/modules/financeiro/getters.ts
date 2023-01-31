@@ -1,5 +1,5 @@
 import { IPageResult } from "../utils/types";
-import { ICategoriaDespesa, IConferencia, IDespesa, IDespesaState, IDespesaStatus, ISimpleUser } from "./types";
+import { ICategoriaDespesa, IComprovante, IConferencia, IDespesa, IDespesaState, IDespesaStatus, ISimpleUser } from "./types";
 
 export default {
     getDespesas(state: IDespesaState): IPageResult<IDespesa> {
@@ -19,5 +19,8 @@ export default {
     },
     getDespesa(state: IDespesaState): IDespesa {
         return state.despesa;
+    },
+    getComprovantes(state: IDespesaState): IComprovante[] {
+        return state.comprovantes;
     }
 }

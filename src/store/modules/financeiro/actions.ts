@@ -1,6 +1,6 @@
 import router from "@/router";
 import * as service from "./services";
-import { ICreateDespesaForm, IDespesaFilterForm, IDespesaStatusForm } from "./types";
+import { IComprovanteDeleteForm, IComprovanteForm, ICreateDespesaForm, IDespesaFilterForm, IDespesaStatusForm } from "./types";
 
 export default {
     async fetchDespesas({ commit }, params: IDespesaFilterForm) {
@@ -58,6 +58,9 @@ export default {
 
         await service.aprovaDespesa(params.id);
         const response = await service.getDespesa(params.id);
+
+        router.go(0);
+
         commit("setDespesa", response.data);
         commit("setLoading", false);
 
@@ -86,6 +89,8 @@ export default {
 
         await service.confirmaAprovacao(params.id);
         const response = await service.getDespesa(params.id);
+        router.go(0);
+
         commit("setLoading", false);
 
         return response;
@@ -95,6 +100,36 @@ export default {
 
         await service.reprovaAprovacao(params.id, params.justificativa_reprovacao);
         const response = await service.getDespesa(params.id);
+        commit("setLoading", false);
+
+        return response;
+    },
+    async fetchComprovantes({ commit }, id: number) {
+        commit("setLoading", true);
+
+        const response = await service.getComprovantes(id);
+        router.go(0);
+
+        commit("setComprovantes", response.data);
+
+        commit("setLoading", false);
+    },
+    async uploadComprovante({ commit }, data: IComprovanteForm) {
+        commit("setLoading", true);
+
+        const response = await service.uploadComprovante(data.despesa, data.comprovante);
+        router.go(0);
+
+        commit("setLoading", false);
+
+        return response;
+    },
+    async deleteComprovante({ commit }, params: IComprovanteDeleteForm) {
+        commit("setLoading", true);
+
+        const response = await service.deletaComprovante(params.despesa, params.id);
+        router.go(0);
+
         commit("setLoading", false);
 
         return response;

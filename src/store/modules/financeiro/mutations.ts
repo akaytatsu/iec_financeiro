@@ -1,5 +1,5 @@
 import { IPageResult } from "../utils/types";
-import { ICategoriaDespesa, IConferencia, IDespesa, IDespesaState, IDespesaStatus, ISimpleUser } from "./types";
+import { ICategoriaDespesa, IComprovante, IConferencia, IDespesa, IDespesaState, IDespesaStatus, ISimpleUser } from "./types";
 
 export default {
     setLoading(state: IDespesaState, payload: boolean) {
@@ -23,4 +23,7 @@ export default {
     setDespesa(state: IDespesaState, payload: IDespesa) {
         state.despesa = payload;
     },
+    setComprovantes(state: IDespesaState, payload: IComprovante[]) {
+        state.comprovantes = payload;
+    }
 }

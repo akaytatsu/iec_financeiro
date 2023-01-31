@@ -1,4 +1,4 @@
-import { ICategoriaDespesa, IConferencia, IDespesa, IDespesaStatus, ISimpleUser } from './types';
+import { ICategoriaDespesa, IComprovante, IConferencia, IDespesa, IDespesaStatus, ISimpleUser } from './types';
 
 export default {
     pageResult: {
@@ -10,6 +10,7 @@ export default {
         results: []
     },
     despesa: {} as IDespesa,
+    comprovantes: [] as IComprovante[],
     loading: false,
     categorias: [] as ICategoriaDespesa[],
     conferencias: [] as IConferencia[],

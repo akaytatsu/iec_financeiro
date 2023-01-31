@@ -15,6 +15,12 @@
                             <el-input :disabled="true" :readonly="true" :value="despesa?.usuario_solicitacao?.name" />
                         </el-form-item>
                     </el-col>
+                    <!-- Situação -->
+                    <el-col :sm="24" :lg="24" :xl="24" v-if="isEdit">
+                        <el-form-item label="Status" :required="false">
+                            <el-input :disabled="true" :readonly="true" :value="despesa?.status_description" />
+                        </el-form-item>
+                    </el-col>
                     <!-- Conferencia -->
                     <el-col :sm="24" :lg="24" :xl="24">
                         <el-form-item label="Conferencia" prop="conferencia" :required="true">
@@ -82,9 +88,11 @@
                     <el-button type="primary" round :loading="isLoading" @click="confirmaRepasse()"
                         v-if="canConfirmRepasse">Confirmar Repasse</el-button>
                     <el-button type="primary" round :loading="isLoading" @click="aprovaComprovacao()"
-                        v-if="canApproveComprovacao">Aprovar COmprovação</el-button>
+                        v-if="canApproveComprovacao">Aprovar Comprovação</el-button>
                     <el-button type="danger" round :loading="isLoading" @click="reprovaComprovacao()"
-                        v-if="canReproveComprovacao">Reprovar COmprovação</el-button>
+                        v-if="canReproveComprovacao">Reprovar Comprovação</el-button>
+                    <el-button type="primary" round :loading="isLoading" @click="comproveAction()"
+                        v-if="canComprove">Comprovar</el-button>
                 </el-row>
             </template>
         </v-content>

@@ -8,7 +8,7 @@ import { FormInstance } from 'element-plus';
 import router from '@/router';
 import { IAbsenceType, IRequestAdd } from '@/store/modules/requests/types';
 import { useRoute } from 'vue-router'
-import { IDespesaStatusForm } from '@/store/modules/financeiro/types';
+import { IComprovanteForm, IDespesaStatusForm } from '@/store/modules/financeiro/types';
 import { toNumber } from '@vue/shared';
 
 
@@ -96,6 +96,8 @@ export default defineComponent({
 
         const isLoading = computed(() => store.getters['requests/getLoading']);
 
+        const fileList = ref<any[]>([]);
+
         const formData = ref<IRequestAdd>({
             id: null,
             conferencia: null,
@@ -103,6 +105,32 @@ export default defineComponent({
             valor: null,
             justificativa: null,
             justificativa_reprovacao: null,
+        });
+
+        const comproveAction = (() => {
+
+            if (!requestID || requestID == "") {
+                alert("Selecione uma despesa para anexar o comprovante");
+                return;
+            }
+
+            let fileAttachment = undefined;
+
+            try {
+                fileAttachment = fileList.value[0].raw;
+            } catch {
+                fileAttachment = undefined;
+                alert("Selecione um arquivo para anexar");
+                return;
+            }
+
+            const formData: IComprovanteForm = {
+                despesa: toNumber(requestID),
+                comprovante: fileAttachment
+            }
+
+            store.dispatch('financeiro/uploadComprovante', formData);
+
         });
 
         const add = () => {
@@ -113,6 +141,15 @@ export default defineComponent({
             if (!requestID) return false;
 
             if (accountInfo.value.can_request && despesa.value.status == 4) return true;
+
+            return false;
+
+        });
+
+        const canComprove = computed(() => {
+            if (!requestID) return false;
+
+            if (accountInfo.value.can_request && despesa.value.status == 4 && accountInfo.value.id == despesa.value.usuario_solicitacao.id) return true;
 
             return false;
 
@@ -204,7 +241,10 @@ export default defineComponent({
             canShowMotivoRecusaField,
             readOnlyMotivoRecusa,
             despesa,
-            isEdit
+            isEdit,
+            fileList,
+            comproveAction,
+            canComprove
         };
     }
 });
