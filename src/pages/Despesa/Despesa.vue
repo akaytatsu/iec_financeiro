@@ -1,11 +1,11 @@
 <template>
     <div class="add">
         <section class="v-title-home">
-            <h1>Solicitação Ausencia</h1>
+            <h1>Solicitação Recurso</h1>
         </section>
         <v-content>
             <el-row justify="start">
-                <h3>Dados da Requisição</h3>
+                <h3>Dados da Solicitação</h3>
             </el-row>
             <el-form ref="ruleFormRef" :model="formData" label-position="top">
                 <el-row :gutter="70">

@@ -196,7 +196,7 @@ export default defineComponent({
         };
 
         const toHomeClick = () => {
-            router.push({ name: 'Home' });
+            router.push('/');
         };
 
         const readOnly = computed(() => {

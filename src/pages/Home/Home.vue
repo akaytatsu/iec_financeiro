@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <section class="v-title-home">
-      <h1>Título</h1>
+      <h1>Lastro de Solicitações</h1>
       <vds-button @click="newRequestTableClick">
         <slot>
           <SvgIcon type="mdi" :path="mdiPlus" :size="18"></SvgIcon>

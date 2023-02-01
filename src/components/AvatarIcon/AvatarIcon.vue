@@ -4,7 +4,7 @@
       <img v-if="imageUrl != ''" :src="imageUrl" :alt="setInitialLetter" />
       <div v-else class="user">
         <span class="user__initial_letters">
-          {{ setInitialLetter }}
+          {{ nameLetters }}
         </span>
       </div>
     </a>
@@ -28,6 +28,7 @@ export default defineComponent({
       validator: (item: string) => Object.keys(EAvatarSize).includes(item)
     },
     fullName: { type: String, default: '' },
+    nameLetters: { type: String, default: '' },
     imageUrl: {
       type: String,
       default: ''
@@ -56,14 +57,18 @@ export default defineComponent({
   max-height: $size;
   border-radius: 50%;
   background-color: $neutral-color-low-medium;
+
   img {
     width: $size;
     height: $size;
     border-radius: 50%;
   }
+
   @if $size <=35 {
     border: 4px solid $neutral-color-hight-light;
-  } @else {
+  }
+
+  @else {
     border: 6px solid $neutral-color-hight-light;
   }
 
@@ -91,7 +96,9 @@ export default defineComponent({
 
       @if $size <=38 {
         font-size: 0.75rem;
-      } @else if $size >50 {
+      }
+
+      @else if $size >50 {
         font-size: 1.375rem;
       }
     }
@@ -103,6 +110,7 @@ export default defineComponent({
 .v-avatar {
   position: relative;
   text-decoration: none;
+
   // reponsavel pelo show e hiddem do tooltip
   .v-tooltip {
     display: none;
@@ -110,7 +118,7 @@ export default defineComponent({
     transition-duration: 300ms;
   }
 
-  &:hover > .v-tooltip {
+  &:hover>.v-tooltip {
     display: inline-block;
   }
 

@@ -5,7 +5,7 @@
     </el-tooltip>
     <el-menu mode="horizontal" class="v-topbar--items" :router="true" :ellipsis="false">
       <el-menu-item index="#myAccount">
-        <my-avatar-icon size="small" :full-name="userInfo?.name"></my-avatar-icon>
+        <my-avatar-icon size="small"></my-avatar-icon>
       </el-menu-item>
       <el-menu-item index="logout">
         <el-tooltip content="Deslogar" :show-after="500">

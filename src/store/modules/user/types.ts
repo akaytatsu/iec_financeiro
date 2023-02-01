@@ -41,4 +41,5 @@ export interface IAccountInfo {
   can_aprove: boolean;
   can_pay: boolean;
   tp_user_financeiro: number;
+  name_letter: string;
 }
