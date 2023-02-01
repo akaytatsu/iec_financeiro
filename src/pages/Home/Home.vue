@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <one-signal></one-signal>
     <section class="v-title-home">
       <h1>Lastro de Solicitações</h1>
       <vds-button @click="newRequestTableClick">

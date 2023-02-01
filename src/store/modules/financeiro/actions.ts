@@ -71,6 +71,7 @@ export default {
 
         await service.reprovaDespesa(params.id, params.justificativa_reprovacao);
         const response = await service.getDespesa(params.id);
+        router.go(0);
         commit("setLoading", false);
 
         return response;
@@ -80,6 +81,7 @@ export default {
 
         await service.confirmarRepasse(params.id);
         const response = await service.getDespesa(params.id);
+        router.go(0);
         commit("setLoading", false);
 
         return response;

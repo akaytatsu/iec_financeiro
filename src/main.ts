@@ -9,7 +9,8 @@ import VueAxios from 'vue-axios';
 import locale from 'element-plus/lib/locale/lang/pt-br';
 import '@vert-capital/design-system/dist/style.css';
 import filters from './common/filters';
-import OneSignalVuePlugin from '@onesignal/onesignal-vue3';
+import OneSignalVuePlugin from '@onesignal/onesignal-vue3'
+
 
 const app = createApp(App);
 

@@ -1,5 +1,5 @@
 import router from '@/router';
-import { getMeInfo, authUser } from './services';
+import { getMeInfo, authUser, updateOneSignalID } from './services';
 import { ILoginForm } from './types';
 
 export default {
@@ -33,5 +33,13 @@ export default {
   },
   async logout({ commit }) {
     commit('setClearTokens');
+  },
+  async updateOneSignalID({ commit }, id: string) {
+    return await updateOneSignalID(id)
+      .then((response: any) => {
+      })
+      .catch((error: any) => {
+        throw error;
+      });
   }
 };

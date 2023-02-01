@@ -7,13 +7,15 @@ import { Search } from '@element-plus/icons-vue';
 import { useStore } from 'vuex';
 import VFormFilter from '@/pages/Home/form/VFormFilter.vue';
 import router from '@/router';
+import OneSignal from '@/components/OneSignal/OneSignal.vue';
 
 export default defineComponent({
   components: {
     VdsButton,
     VdsPagination,
     VContent,
-    VFormFilter
+    VFormFilter,
+    OneSignal
   },
   setup() {
     const store = useStore();
