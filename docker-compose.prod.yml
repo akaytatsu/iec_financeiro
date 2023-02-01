@@ -2,6 +2,6 @@ version: '3.7'
 
 services:
   app:
-    image: akaytatsu/iec-fin-front:latest
+    image: akaytatsu/iec-fin-front:1675215513
     ports:
       - 7054:80
