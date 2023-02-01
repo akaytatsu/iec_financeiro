@@ -9,6 +9,7 @@ import VueAxios from 'vue-axios';
 import locale from 'element-plus/lib/locale/lang/pt-br';
 import '@vert-capital/design-system/dist/style.css';
 import filters from './common/filters';
+import OneSignalVuePlugin from '@onesignal/onesignal-vue3';
 
 const app = createApp(App);
 
@@ -18,6 +19,9 @@ app.use(ElementPlus, { locale });
 app.use(router);
 app.use(store);
 app.use(VueAxios, axios);
+app.use(OneSignalVuePlugin, {
+    appId: "34734818-1fe3-4495-8289-26fa2e9a2d2e",
+});
 
 app.provide('$filters', filters);
 
