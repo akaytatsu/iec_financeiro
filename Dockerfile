@@ -12,5 +12,5 @@ RUN yarn run build:prd
 FROM nginx:stable-alpine AS publish_site
 COPY  ./.nginx/nginx.conf /etc/nginx/nginx.conf
 COPY --from=build_stage /app/dist /usr/share/nginx/html
-EXPOSE 80
+EXPOSE 7054
 CMD ["nginx", "-g", "daemon off;"]
