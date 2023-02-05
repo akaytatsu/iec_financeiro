@@ -21,6 +21,7 @@ pipeline {
         registry = "hub.docker.com/r"
         registryCredential = "docker_hub_akaytatsu_novo"
         dockerImageName = ""
+        buildNumberFixed = currentBuild.number
     }
 
     agent {
@@ -59,7 +60,7 @@ pipeline {
                         // docker.withRegistry("https://$registry", registryCredential) {
                         dockerImageName = "akaytatsu/iec-fin-front"
                         dockerImage = docker.build(dockerImageName, "-f Dockerfile-prd .")
-                        dockerImage.push("$BUILD_NUMBER")
+                        dockerImage.push("$buildNumberFixed")
                         dockerImage.push("latest")
                         // }
                     }
@@ -77,7 +78,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([sshUserPrivateKey(credentialsId: "SSH_TAPBUSS", keyFileVariable: 'key')]) {
-                        sh 'cd /home/ubuntu/chrpo/iec_fin_front && deploy.sh ' + $BUILD_NUMBER
+                        sh 'cd /home/ubuntu/chrpo/iec_fin_front && deploy.sh ' + buildNumberFixed
                     }
                 }
             }
