@@ -76,9 +76,9 @@ pipeline {
             steps {
                 script {
                     withCredentials([sshUserPrivateKey(credentialsId: "SSH_TAPBUSS", keyFileVariable: 'key')]) {
-                        sh 'ssh -i $key ubuntu@34.197.229.243 -o StrictHostKeyChecking=no "cd /home/ubuntu/chrpo/iec_fin_front && docker-compose -f docker-compose.prod.yml stop"'
-                        sh 'ssh -i $key ubuntu@34.197.229.243 -o StrictHostKeyChecking=no "cd /home/ubuntu/chrpo/iec_fin_front && docker-compose -f docker-compose.prod.yml down"'
-                        sh 'ssh -i $key ubuntu@34.197.229.243 -o StrictHostKeyChecking=no "cd /home/ubuntu/chrpo/iec_fin_front && cat docker-compose.yml | sed 's/{{BUILD_NUMBER}}/$BUILD_NUMBER/g' | docker-compose up -d"
+                        sh 'ssh -i $key ubuntu@34.197.229.243 -o StrictHostKeyChecking=no \"cd /home/ubuntu/chrpo/iec_fin_front && docker-compose -f docker-compose.prod.yml stop\"'
+                        sh 'ssh -i $key ubuntu@34.197.229.243 -o StrictHostKeyChecking=no \cd /home/ubuntu/chrpo/iec_fin_front && docker-compose -f docker-compose.prod.yml down\"'
+                        sh 'ssh -i $key ubuntu@34.197.229.243 -o StrictHostKeyChecking=no \"cd /home/ubuntu/chrpo/iec_fin_front && cat docker-compose.yml | sed 's/{{BUILD_NUMBER}}/$BUILD_NUMBER/g' | docker-compose up -d\"'
                     }
                 }
             }
