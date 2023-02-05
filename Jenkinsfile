@@ -84,42 +84,4 @@ pipeline {
         }
 
     }
-
-    post {
-        always {
-            echo "Stop Docker image"
-            script{
-                sh 'docker-compose -f docker-compose.yml -f docker-compose.tests.yml down'
-            }
-        }
-
-        success {
-            echo "Notify bitbucket success"
-            script {
-                sh 'docker-compose -f docker-compose.yml -f docker-compose.tests.yml down'
-            }
-        }
-
-        failure {
-            echo "Notify bitbucket failure"
-            script {
-                sh 'docker-compose -f docker-compose.yml -f docker-compose.tests.yml down'
-            }
-        }
-
-        aborted {
-            echo "Notify bitbucket failure"
-            script {
-                sh 'docker-compose -f docker-compose.yml -f docker-compose.tests.yml down'
-            }
-        }
-
-        unsuccessful {
-            echo "Notify bitbucket failure"
-            script {
-                sh 'docker-compose -f docker-compose.yml -f docker-compose.tests.yml down'
-            }
-        }
-
-    }
 }
