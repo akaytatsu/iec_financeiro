@@ -56,12 +56,12 @@ pipeline {
 
                         sh "docker login -u ${USERNAME} -p ${PASSWORD}"
 
-                        docker.withRegistry("https://$registry", registryCredential) {
-                            dockerImageName = "akaytatsu/iec-fin-front"
-                            dockerImage = docker.build(dockerImageName, "-f Dockerfile-prd .")
-                            dockerImage.push("$BUILD_NUMBER")
-                            dockerImage.push("latest")
-                        }
+                        // docker.withRegistry("https://$registry", registryCredential) {
+                        dockerImageName = "akaytatsu/iec-fin-front"
+                        dockerImage = docker.build(dockerImageName, "-f Dockerfile-prd .")
+                        dockerImage.push("$BUILD_NUMBER")
+                        dockerImage.push("latest")
+                        // }
                     }
                 }
 
