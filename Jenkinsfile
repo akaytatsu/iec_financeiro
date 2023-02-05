@@ -86,7 +86,3 @@ pipeline {
 
     }
 }
-
-
-
-sudo docker stop $(sudo docker ps | grep "akaytatsu/iec-fin-front" | cut -d " " -f 1)
