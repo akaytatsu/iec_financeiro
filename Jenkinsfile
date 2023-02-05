@@ -60,7 +60,7 @@ pipeline {
                         // docker.withRegistry("https://$registry", registryCredential) {
                         dockerImageName = "akaytatsu/iec-fin-front"
                         dockerImage = docker.build(dockerImageName, "-f Dockerfile-prd .")
-                        dockerImage.push("$buildNumberFixed")
+                        dockerImage.push("$BUILD_NUMBER")
                         dockerImage.push("latest")
                         // }
                     }
@@ -78,7 +78,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([sshUserPrivateKey(credentialsId: "SSH_TAPBUSS", keyFileVariable: 'key')]) {
-                        sh 'cd /home/ubuntu/chrpo/iec_fin_front && deploy.sh ' + buildNumberFixed
+                        sh 'cd /home/ubuntu/chrpo/iec_fin_front && deploy.sh ' + "$BUILD_NUMBER"
                     }
                 }
             }
