@@ -21,7 +21,6 @@ pipeline {
         registry = "hub.docker.com/r"
         registryCredential = "docker_hub_akaytatsu_novo"
         dockerImageName = ""
-        buildNumberFixed = currentBuild.number
     }
 
     agent {
