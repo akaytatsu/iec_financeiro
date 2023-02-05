@@ -2,7 +2,9 @@ version: '3.7'
 
 services:
   app:
-    build:
-      context: .
-    working_dir: /app
-
+    image: akaytatsu:iec-fin-front:{{BUILD_NUMBER}}
+    ports:
+      - 7054:80
+#    build:
+#      context: .
+#    working_dir: /app
