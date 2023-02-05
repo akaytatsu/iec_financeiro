@@ -64,11 +64,6 @@ pipeline {
                         // }
                     }
                 }
-
-                script{
-                    sh "docker rmi $registry/$dockerImageName:$BUILD_NUMBER"
-                    sh "docker rmi $registry/$dockerImageName:latest"
-                }
             }
         }
 
