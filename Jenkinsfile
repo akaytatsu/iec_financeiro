@@ -19,6 +19,7 @@ pipeline {
 
     environment {
         registry = "hub.docker.com/r"
+        registryCredential = "DOCKER_HUB_AKAYTATSU"
         dockerImageName = ""
     }
 
