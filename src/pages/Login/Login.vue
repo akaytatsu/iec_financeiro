@@ -5,7 +5,7 @@
       <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-position="top"
         class="v-base-login__box v-content p-4 pt-5">
 
-        <el-row justify="start">
+        <el-row justify="center">
           <h3>Igreja em Contagem</h3>
         </el-row>
 
@@ -34,16 +34,21 @@
           </el-col>
         </el-row>
 
-        <!-- <div class="row justify-content-between align-items-center mb-4">
-          <div class="col-auto">
-            <div class="v-input-checkbox v-input-checkbox--inline center">
-              adasds
-            </div>
-          </div>
-        </div> -->
+        <br>
+        <a href="javascript:void()" @click="toRecoverPassword()">
+          <p class="text-center medium">Esqueceu sua senha? Clique</p>
+        </a>
+        <br>
 
-        <vds-button outline @click="submitForm(ruleFormRef)" class="v-btn--full-width" :disabled="isLoading"> LOGIN
-        </vds-button>
+        <el-button type="success" round @click="submitForm(ruleFormRef)" class="v-btn--full-width"
+          :disabled="isLoading"> LOGIN
+        </el-button>
+
+        <hr>
+
+        <el-button type="warning" round @click="toCadastrar()" class="v-btn--full-width" :disabled="isLoading">
+          CADASTRAR
+        </el-button>
 
         <hr>
         <p class="text-center small">Sistema de gestão financeiro de gastos</p>
@@ -52,8 +57,6 @@
   </div>
 
 </template>
-
-
 
 
 

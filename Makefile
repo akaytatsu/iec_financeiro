@@ -46,3 +46,6 @@ yarn_install: show_env
 
 yarn_add: show_env
 	docker-compose ${DOCKER_COMPOSE_FILE} exec app yarn install ${ARGS} --ignore-engines
+
+build: show_env
+	bash ./build.sh

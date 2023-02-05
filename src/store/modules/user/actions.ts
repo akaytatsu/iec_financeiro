@@ -1,6 +1,6 @@
 import router from '@/router';
-import { getMeInfo, authUser, updateOneSignalID } from './services';
-import { ILoginForm } from './types';
+import { getMeInfo, authUser, updateOneSignalID, createUser, recoverPassword } from './services';
+import { ICreateUserForm, ILoginForm, IRecoverError } from './types';
 
 export default {
   async login({ commit }, data: ILoginForm) {
@@ -41,5 +41,46 @@ export default {
       .catch((error: any) => {
         throw error;
       });
+  },
+  async createUser({ commit, dispatch }, data: ICreateUserForm) {
+    commit('setIsLoading', true);
+
+    const response = await createUser(data);
+
+    if (response.status == 'success') {
+
+      const formDataLogin: ILoginForm = {
+        email: data.email,
+        password: data.password
+      }
+
+      dispatch("login", formDataLogin);
+    } else {
+      commit('setErrosCreateUser', response.data);
+      commit('setIsLoading', false);
+    }
+  },
+  async recoverPassword({ commit }, email: string) {
+    commit('setIsLoading', true);
+
+    const response = await recoverPassword(email);
+
+    if (response.status == 'success') {
+      const resp: IRecoverError = {
+        error: false,
+        message: response.data.error
+      }
+      commit('setRecoverError', resp);
+      commit('setRecoverSuccess', true);
+    } else {
+      const resp: IRecoverError = {
+        error: true,
+        message: response.data.error
+      }
+      commit('setRecoverError', resp);
+      commit('setRecoverSuccess', false);
+    }
+
+    commit('setIsLoading', false);
   }
 };

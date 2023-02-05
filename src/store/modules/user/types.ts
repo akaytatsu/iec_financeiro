@@ -9,7 +9,10 @@ export interface IUserState {
   info: IUserInfo;
   invalidToken: boolean;
   loginErros: ILoginResponse;
+  createUserErros: ICreateUserErrors;
   accountInfo: IAccountInfo;
+  recoverError: IRecoverError;
+  recoverSuccess: boolean;
 }
 
 export interface IUserInfo {
@@ -24,12 +27,29 @@ export interface ILoginResponse {
   non_field_errors: string[];
   email: string[];
   password: string[];
-  token: string;
+  name: string[];
+  telefone: string[];
+}
+
+export interface ICreateUserErrors {
+  non_field_errors: string[];
+  email: string[];
+  password: string[];
+  name: string[];
+  telefone: string[];
 }
 
 export interface ILoginForm {
   email: string;
   password: string;
+}
+
+export interface ICreateUserForm {
+  email: string;
+  name: string;
+  telefone: string;
+  password: string;
+  password_confirm: string;
 }
 
 export interface IAccountInfo {
@@ -42,4 +62,9 @@ export interface IAccountInfo {
   can_pay: boolean;
   tp_user_financeiro: number;
   name_letter: string;
+}
+
+export interface IRecoverError {
+  error: boolean;
+  message: string;
 }

@@ -3,7 +3,7 @@ import { useStore } from 'vuex';
 import type { FormInstance, FormRules } from 'element-plus';
 import { UserFilled } from '@element-plus/icons-vue';
 import VdsButton from '@/components/Button/Button.vue';
-import { ILoginForm } from '@/store/modules/user/types';
+import { ICreateUserForm, ILoginForm } from '@/store/modules/user/types';
 import router from '@/router';
 
 export default defineComponent({
@@ -15,22 +15,28 @@ export default defineComponent({
         const isLoading: any = computed(() => store.getters['user/isLoading']);
         const visiblePass: any = ref(false);
         const ruleFormRef = ref<FormInstance>();
-        const ruleForm = ref<ILoginForm>({
+        const ruleForm = ref<ICreateUserForm>({
+            name: '',
+            telefone: '',
             email: '',
-            password: ''
+            password: '',
+            password_confirm: ''
         });
         const rules = reactive<FormRules>({
             email: [{ required: true, message: "Campo obrigatório", trigger: 'change' }],
-            password: [{ required: true, message: 'Campo obrigatório', trigger: 'change' }]
+            password: [{ required: true, message: 'Campo obrigatório', trigger: 'change' }],
+            name: [{ required: true, message: 'Campo obrigatório', trigger: 'change' }],
+            telefone: [{ required: true, message: 'Campo obrigatório', trigger: 'change' }],
+            password_confirm: [{ required: true, message: 'Campo obrigatório', trigger: 'change' }]
         });
 
-        const loginErrors = computed(() => store.getters['user/getLoginErrors']);
+        const createUserErrors = computed(() => store.getters['user/getCreateUserErrors']);
 
         const submitForm = (formEl: FormInstance | undefined) => {
             if (!formEl) return;
             formEl.validate(async (valid) => {
                 if (valid) {
-                    store.dispatch('user/login', ruleForm.value);
+                    store.dispatch('user/createUser', ruleForm.value);
                 } else {
                     return false;
                 }
@@ -43,26 +49,20 @@ export default defineComponent({
             formEl.resetFields();
         };
 
-        const toCadastrar = () => {
-            router.push('/cadastrar');
+        const toLoginHome = () => {
+            router.push('/login');
         };
-
-        const toRecoverPassword = () => {
-            router.push('/recuperar-senha');
-        };
-
 
         return {
-            loginErrors,
+            createUserErrors,
             isLoading,
+            toLoginHome,
             UserFilled,
             ruleFormRef,
             ruleForm,
             rules,
             submitForm,
-            resetForm,
-            toRecoverPassword,
-            toCadastrar
+            resetForm
         };
     }
 });

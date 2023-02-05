@@ -13,24 +13,23 @@ export default defineComponent({
     setup() {
         const store = useStore();
         const isLoading: any = computed(() => store.getters['user/isLoading']);
-        const visiblePass: any = ref(false);
         const ruleFormRef = ref<FormInstance>();
         const ruleForm = ref<ILoginForm>({
             email: '',
             password: ''
         });
         const rules = reactive<FormRules>({
-            email: [{ required: true, message: "Campo obrigatório", trigger: 'change' }],
-            password: [{ required: true, message: 'Campo obrigatório', trigger: 'change' }]
+            email: [{ required: true, message: "Campo obrigatório", trigger: 'change' }]
         });
 
-        const loginErrors = computed(() => store.getters['user/getLoginErrors']);
+        const recoverErrors = computed(() => store.getters['user/getRecoverError']);
+        const recoverSucess = computed(() => store.getters['user/getRecoverSuccess']);
 
         const submitForm = (formEl: FormInstance | undefined) => {
             if (!formEl) return;
             formEl.validate(async (valid) => {
                 if (valid) {
-                    store.dispatch('user/login', ruleForm.value);
+                    store.dispatch('user/recoverPassword', ruleForm.value.email);
                 } else {
                     return false;
                 }
@@ -43,17 +42,13 @@ export default defineComponent({
             formEl.resetFields();
         };
 
-        const toCadastrar = () => {
-            router.push('/cadastrar');
-        };
-
-        const toRecoverPassword = () => {
-            router.push('/recuperar-senha');
+        const toLoginHome = () => {
+            router.push('/');
         };
 
 
         return {
-            loginErrors,
+            recoverErrors,
             isLoading,
             UserFilled,
             ruleFormRef,
@@ -61,8 +56,8 @@ export default defineComponent({
             rules,
             submitForm,
             resetForm,
-            toRecoverPassword,
-            toCadastrar
+            recoverSucess,
+            toLoginHome
         };
     }
 });

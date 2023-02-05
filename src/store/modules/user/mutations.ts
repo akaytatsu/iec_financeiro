@@ -1,4 +1,4 @@
-import type { IUserState, IUserInfo, ILoginResponse, IAccountInfo } from './types';
+import type { IUserState, IUserInfo, ILoginResponse, IAccountInfo, ICreateUserErrors, IRecoverError } from './types';
 
 export default {
   setIsLogged(state: IUserState, isLogged: boolean): void {
@@ -28,5 +28,14 @@ export default {
   },
   setErroLogin(state: IUserState, loginErros: ILoginResponse): void {
     state.loginErros = loginErros;
+  },
+  setErrosCreateUser(state: IUserState, createUserErros: ICreateUserErrors): void {
+    state.createUserErros = createUserErros;
+  },
+  setRecoverError(state: IUserState, recoverError: IRecoverError): void {
+    state.recoverError = recoverError;
+  },
+  setRecoverSuccess(state: IUserState, recoverSuccess: boolean): void {
+    state.recoverSuccess = recoverSuccess;
   }
 };

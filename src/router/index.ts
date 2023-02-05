@@ -14,6 +14,22 @@ const router = createRouter({
       component: () => import('../pages/Login/Login.vue'),
     },
     {
+      path: '/cadastrar',
+      name: 'cadastrar',
+      meta: {
+        requiresAuth: false
+      },
+      component: () => import('../pages/Cadastrar/Cadastrar.vue'),
+    },
+    {
+      path: '/recuperar-senha',
+      name: 'recuperar-senha',
+      meta: {
+        requiresAuth: false
+      },
+      component: () => import('../pages/RecuperarSenha/RecuperarSenha.vue'),
+    },
+    {
       path: '/logout',
       name: 'logout',
       meta: {

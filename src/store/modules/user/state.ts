@@ -1,4 +1,4 @@
-import type { IAccountInfo, ILoginResponse, IUserInfo } from './types';
+import type { IAccountInfo, ICreateUserErrors, ILoginResponse, IRecoverError, IUserInfo } from './types';
 
 export default {
   isLogged: false,
@@ -8,5 +8,8 @@ export default {
   info: {} as IUserInfo,
   invalidToken: false,
   loginErros: {} as ILoginResponse,
-  accountInfo: {} as IAccountInfo
+  accountInfo: {} as IAccountInfo,
+  createUserErros: {} as ICreateUserErrors,
+  recoverError: {} as IRecoverError,
+  recoverSuccess: false,
 };
