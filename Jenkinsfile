@@ -78,6 +78,8 @@ pipeline {
                 script {
                     withCredentials([sshUserPrivateKey(credentialsId: "SSH_TAPBUSS", keyFileVariable: 'key')]) {
                         sh 'ssh -i $key ubuntu@34.197.229.243 -o StrictHostKeyChecking=no "cd /home/ubuntu/chrpo/iec_fin_front && bash deploy.sh" ' + "$BUILD_NUMBER"
+                        sh 'ssh -i $key ubuntu@34.197.229.243 -o StrictHostKeyChecking=no "docker stop iec-fin-vue"'
+                        sh 'ssh -i $key ubuntu@34.197.229.243 -o StrictHostKeyChecking=no "docker run -d -p 7054:80 akaytatsu/iec-fin-front:' + "$BUILD_NUMBER"
                     }
                 }
             }
@@ -86,3 +88,7 @@ pipeline {
 
     }
 }
+
+
+
+sudo docker stop $(sudo docker ps | grep "akaytatsu/iec-fin-front" | cut -d " " -f 1)
