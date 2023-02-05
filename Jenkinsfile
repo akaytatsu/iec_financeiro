@@ -77,7 +77,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([sshUserPrivateKey(credentialsId: "SSH_TAPBUSS", keyFileVariable: 'key')]) {
-                        sh 'ssh -i $key ubuntu@34.197.229.243 -o StrictHostKeyChecking=no "cd /home/ubuntu/chrpo/iec_fin_front && bash deploy.sh"' + "$BUILD_NUMBER"
+                        sh 'ssh -i $key ubuntu@34.197.229.243 -o StrictHostKeyChecking=no "cd /home/ubuntu/chrpo/iec_fin_front && bash deploy.sh" ' + "$BUILD_NUMBER"
                     }
                 }
             }
