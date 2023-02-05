@@ -52,11 +52,16 @@ pipeline {
 
             steps {
                 script {
-                    docker.withRegistry("https://$registry", registryCredential) {
-                        dockerImageName = "akaytatsu/gocusign"
-                        dockerImage = docker.build(dockerImageName, "-f Dockerfile-prd .")
-                        dockerImage.push("$BUILD_NUMBER")
-                        dockerImage.push("latest")
+                    withCredentials([usernamePassword( credentialsId: registryCredential, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+
+                        sh "docker login -u ${USERNAME} -p ${PASSWORD}"
+
+                        docker.withRegistry("https://$registry", registryCredential) {
+                            dockerImageName = "akaytatsu/iec-fin-front"
+                            dockerImage = docker.build(dockerImageName, "-f Dockerfile-prd .")
+                            dockerImage.push("$BUILD_NUMBER")
+                            dockerImage.push("latest")
+                        }
                     }
                 }
 
